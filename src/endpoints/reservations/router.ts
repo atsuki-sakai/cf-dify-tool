@@ -5,6 +5,7 @@ import { ReservationCreate } from "./reservationCreate";
 import { ReservationList } from "./reservationList";
 import { ReservationUpdate } from "./reservationUpdate";
 import { ReservationsByCustomer } from "./reservationsByCustomer";
+import { DEPLOY_URL } from "../../lib/constant";
 
 const app = new Hono();
 
@@ -16,7 +17,7 @@ const openapi = fromHono(app, {
       description: "This is the documentation for Reservation CRUD API",
     },
     servers: [
-      { url: "https://dify-tool.atk721.workers.dev/reservations" },
+      { url: `${DEPLOY_URL}/reservations` },
     ],
   },
 });

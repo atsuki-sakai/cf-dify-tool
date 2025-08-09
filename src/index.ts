@@ -5,6 +5,7 @@ import { customersRouter } from "./endpoints/customers/router";
 import { chatHistoryRouter } from "./endpoints/chat-history/router";
 import { reservationsRouter } from "./endpoints/reservations/router";
 import { ContentfulStatusCode } from "hono/utils/http-status";
+import { DEPLOY_URL } from "./lib/constant";
 
 // Start a Hono app
 const app = new Hono<{ Bindings: Env }>();
@@ -45,7 +46,7 @@ const openapi = fromHono(app, {
       description: "This is the documentation for Dify Tool Cloudflare Worker API to d1 database to store chat history and reservations",
     },
     servers: [
-      { url: "https://dify-tool.atk721.workers.dev" },
+      { url: DEPLOY_URL },
     ],
   },
 });

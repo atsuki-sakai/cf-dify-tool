@@ -4,6 +4,7 @@ import { Hono } from "hono";
 import { ChatHistoryCreate } from "./chatHistoryCreate";
 import { ChatHistoryList } from "./chatHistoryList";
 import { ChatHistoryByCustomer } from "./chatHistoryByCustomer";
+import { DEPLOY_URL } from "../../lib/constant";
 
 const app = new Hono();
 
@@ -14,7 +15,7 @@ const openapi = fromHono(app, {
       version: "1.0.0",
     },
     servers: [
-      { url: "https://dify-tool.atk721.workers.dev/chat" },
+      { url: `${DEPLOY_URL}/chat` },
     ],
   },
 });

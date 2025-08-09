@@ -6,6 +6,7 @@ import { CustomerDelete } from "./customerDelete";
 import { CustomerList } from "./customerList";
 import { CustomerRead } from "./customerRead";
 import { CustomerUpdate } from "./customerUpdate";
+import { DEPLOY_URL } from "../../lib/constant";
 
 const app = new Hono();
 
@@ -17,7 +18,7 @@ const openapi = fromHono(app, {
       description: "This is the documentation for Customer CRUD API",
     },
     servers: [
-      { url: "https://dify-tool.atk721.workers.dev/customers" },
+      { url: `${DEPLOY_URL}/customers` },
     ],
   },
 });
