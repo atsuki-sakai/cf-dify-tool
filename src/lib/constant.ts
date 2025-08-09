@@ -1,0 +1,1 @@
+export const DEPLOY_URL = "https://dify-tool.atk721.workers.dev";

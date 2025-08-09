@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { DEPLOY_URL } from '../src/lib/constant';
 
 const schemaPath = path.resolve(process.cwd(), 'schema.json');
 const raw = fs.readFileSync(schemaPath, 'utf8');
@@ -42,7 +43,7 @@ if ('webhooks' in doc) {
 
 // Ensure servers is present
 if (!doc.servers || !Array.isArray(doc.servers) || doc.servers.length === 0) {
-  doc.servers = [{ url: 'https://dify-tool.atk721.workers.dev' }];
+  doc.servers = [{ url: DEPLOY_URL }];
 }
 
 transformSchema(doc);
