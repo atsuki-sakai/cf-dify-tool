@@ -1,72 +1,76 @@
-# OpenAPI Template
+# Dify Tool Cloudflare Worker API
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/cloudflare/templates/tree/main/chanfana-openapi-template)
+このプロジェクトは、[Dify](https://dify.ai/) と連携するためのツールAPIを Cloudflare Workers 上に構築するものです。
+[Hono](https://hono.dev/) フレームワークを使用し、データベースには Cloudflare D1 を利用しています。
 
-![OpenAPI Template Preview](https://imagedelivery.net/wSMYJvS3Xw-n339CbDyDIA/91076b39-1f5b-46f6-7f14-536a6f183000/public)
+顧客管理、予約管理、チャット履歴の保存など、DifyのAgentやWorkflowから利用されることを想定した基本的なCRUD機能を提供します。
 
-<!-- dash-content-start -->
+## 主な機能
 
-This is a Cloudflare Worker with OpenAPI 3.1 Auto Generation and Validation using [chanfana](https://github.com/cloudflare/chanfana) and [Hono](https://github.com/honojs/hono).
+*   **顧客管理:** 顧客情報の登録、取得、更新、削除
+*   **予約管理:** 予約情報の登録、取得、更新
+*   **チャット履歴:** Dify上での会話履歴の保存、顧客ごとの履歴取得
+*   **APIドキュメント:** [Chanfana](https://github.com/drizzle-team/chanfana) を利用したOpenAPI仕様の自動生成とSwagger UIの提供 
+*** scriptsでDifyの許容するスキーマに書き換えている。登録時はschema.jsonを貼り付ければ登録できます。 ***
 
-This is an example project made to be used as a quick start into building OpenAPI compliant Workers that generates the
-`openapi.json` schema automatically from code and validates the incoming request to the defined parameters or request body.
+## 使用技術
 
-This template includes various endpoints, a D1 database, and integration tests using [Vitest](https://vitest.dev/) as examples. In endpoints, you will find [chanfana D1 AutoEndpoints](https://chanfana.com/endpoints/auto/d1) and a [normal endpoint](https://chanfana.com/endpoints/defining-endpoints) to serve as examples for your projects.
+*   **フレームワーク:** [Hono](https://hono.dev/)
+*   **データベース:** [Cloudflare D1](https://developers.cloudflare.com/d1/)
+*   **ORM:** [Drizzle ORM](https://orm.drizzle.team/)
+*   **デプロイ環境:** [Cloudflare Workers](https://workers.cloudflare.com/)
+*   **パッケージ管理:** [pnpm](https://pnpm.io/)
+*   **テスト:** [Vitest](https://vitest.dev/)
 
-Besides being able to see the OpenAPI schema (openapi.json) in the browser, you can also extract the schema locally no hassle by running this command `npm run schema`.
+## APIエンドポイント
 
-<!-- dash-content-end -->
+このアプリケーションをデプロイすると、ルート (`/`) にてSwagger UIがホストされ、利用可能なすべてのAPIエンドポイントの仕様を確認し、直接試すことができます。
 
-> [!IMPORTANT]
-> When using C3 to create this project, select "no" when it asks if you want to deploy. You need to follow this project's [setup steps](https://github.com/cloudflare/templates/tree/main/openapi-template#setup-steps) before deploying.
+主なエンドポイントは以下の通りです。
 
-## Getting Started
+*   `/customers`: 顧客情報の操作
+*   `/reservations`: 予約情報の操作
+*   `/chat`: チャット履歴の操作
 
-Outside of this repo, you can start a new project with this template using [C3](https://developers.cloudflare.com/pages/get-started/c3/) (the `create-cloudflare` CLI):
+各エンドポイントはBearerトークンによる認証で保護されています。
 
-```bash
-npm create cloudflare@latest -- --template=cloudflare/templates/openapi-template
-```
+## セットアップと開発
 
-A live public deployment of this template is available at [https://openapi-template.templates.workers.dev](https://openapi-template.templates.workers.dev)
-
-## Setup Steps
-
-1. Install the project dependencies with a package manager of your choice:
-   ```bash
-   npm install
-   ```
-2. Create a [D1 database](https://developers.cloudflare.com/d1/get-started/) with the name "openapi-template-db":
-   ```bash
-   npx wrangler d1 create openapi-template-db
-   ```
-   ...and update the `database_id` field in `wrangler.json` with the new database ID.
-3. Run the following db migration to initialize the database (notice the `migrations` directory in this project):
-   ```bash
-   npx wrangler d1 migrations apply DB --remote
-   ```
-4. Deploy the project!
-   ```bash
-   npx wrangler deploy
-   ```
-5. Monitor your worker
-   ```bash
-   npx wrangler tail
-   ```
-
-## Testing
-
-This template includes integration tests using [Vitest](https://vitest.dev/). To run the tests locally:
+### 1. 依存関係のインストール
 
 ```bash
-npm run test
+pnpm install
 ```
 
-Test files are located in the `tests/` directory, with examples demonstrating how to test your endpoints and database interactions.
+### 2. データベースのマイグレーション
 
-## Project structure
+ローカルのD1データベースにテーブルを作成します。
 
-1. Your main router is defined in `src/index.ts`.
-2. Each endpoint has its own file in `src/endpoints/`.
-3. Integration tests are located in the `tests/` directory.
-4. For more information read the [chanfana documentation](https://chanfana.com/), [Hono documentation](https://hono.dev/docs), and [Vitest documentation](https://vitest.dev/guide/).
+```bash
+pnpm run seedLocalDb
+```
+
+### 3. 開発サーバーの起動
+
+```bash
+pnpm run dev
+```
+
+開発サーバーが起動し、ローカルでAPIの動作確認ができます。
+
+## デプロイ
+
+Cloudflareにデプロイするには、以下のコマンドを実行します。
+このコマンドは、デプロイの前に本番のD1データベースへマイグレーションを自動的に適用します。
+
+```bash
+pnpm run deploy
+```
+
+## テスト
+
+以下のコマンドでインテグレーションテストを実行します。
+
+```bash
+pnpm run test
+```

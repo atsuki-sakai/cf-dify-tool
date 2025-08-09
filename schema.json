@@ -17,6 +17,10 @@
   "paths": {
     "/customers": {
       "post": {
+        "tags": [
+          "Customers"
+        ],
+        "summary": "Create customer",
         "operationId": "post_CustomerCreate",
         "requestBody": {
           "content": {
@@ -151,6 +155,10 @@
         }
       },
       "get": {
+        "tags": [
+          "Customers"
+        ],
+        "summary": "List customers",
         "operationId": "get_CustomerList",
         "parameters": [
           {
@@ -642,6 +650,10 @@
     },
     "/chat": {
       "post": {
+        "tags": [
+          "Chat History"
+        ],
+        "summary": "Create chat history",
         "operationId": "post_ChatHistoryCreate",
         "requestBody": {
           "content": {
@@ -776,6 +788,10 @@
         }
       },
       "get": {
+        "tags": [
+          "Chat History"
+        ],
+        "summary": "List chat history",
         "operationId": "get_ChatHistoryList",
         "parameters": [
           {
@@ -933,6 +949,10 @@
     },
     "/reservations": {
       "post": {
+        "tags": [
+          "Reservations"
+        ],
+        "summary": "Create reservation",
         "operationId": "post_ReservationCreate",
         "requestBody": {
           "content": {
@@ -1089,6 +1109,10 @@
         }
       },
       "get": {
+        "tags": [
+          "Reservations"
+        ],
+        "summary": "List reservations",
         "operationId": "get_ReservationList",
         "parameters": [
           {
