@@ -31,12 +31,12 @@ async function createCustomer(payload: {
     headers: authHeaders,
     body: JSON.stringify(payload),
   });
-  const body = await res.json<{ success: boolean; result: { id: number } }>();
+  const body = await res.json<{ success: boolean; result: { id: string } }>();
   return { status: res.status, body };
 }
 
 async function createChat(payload: {
-  customer_id: number;
+  customer_id: string;
   user_name: string;
   message: string;
   response: string;

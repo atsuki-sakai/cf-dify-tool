@@ -21,7 +21,7 @@ export const customers = sqliteTable('customers', {
 
 export const chatHistory = sqliteTable('chat_history', {
   id: integer('id').primaryKey({ autoIncrement: true }),
-  customer_id: integer('customer_id').notNull().references(() => customers.id, { onDelete: 'cascade' }),
+  customer_id: text('customer_id').notNull(),
   user_name: text('user_name').notNull(),
   message: text('message').notNull(),
   response: text('response').notNull(),
@@ -30,7 +30,7 @@ export const chatHistory = sqliteTable('chat_history', {
 
 export const reservations = sqliteTable('reservations', {
   id: integer('id').primaryKey({ autoIncrement: true }),
-  customer_id: integer('customer_id').notNull().references(() => customers.id, { onDelete: 'cascade' }),
+  customer_id: text('customer_id').notNull(),
   customer_name: text('customer_name').notNull(),
   service_name: text('service_name').notNull(),
   reservation_date: text('reservation_date').notNull(),

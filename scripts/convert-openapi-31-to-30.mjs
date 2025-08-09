@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { DEPLOY_URL } from '../src/lib/constant';
+const DEPLOY_URL = "https://dify-tool.atk721.workers.dev";
 
 const schemaPath = path.resolve(process.cwd(), 'schema.json');
 const raw = fs.readFileSync(schemaPath, 'utf8');

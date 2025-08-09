@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const reservation = z.object({
   id: z.number().int(),
-  customer_id: z.number().int(),
+  customer_id: z.string(),
   customer_name: z.string(),
   service_name: z.string(),
   reservation_date: z.string(),

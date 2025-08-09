@@ -8,6 +8,13 @@ import { DEPLOY_URL } from "../../lib/constant";
 
 const app = new Hono();
 
+// Add debug route for testing
+app.post("/debug", async (c) => {
+  const body = await c.req.json();
+  console.log("Debug body:", body);
+  return c.json({ success: true, body });
+});
+
 const openapi = fromHono(app, {
   schema: {
     info: {

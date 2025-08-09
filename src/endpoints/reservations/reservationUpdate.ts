@@ -3,6 +3,10 @@ import { HandleArgs } from '../../types';
 import { ReservationModel } from './base';
 
 export class ReservationUpdate extends D1UpdateEndpoint<HandleArgs> {
+  schema = {
+    tags: ["Reservations"],
+    summary: "Update reservation",
+  };
   _meta = {
     model: ReservationModel,
     fields: ReservationModel.schema.pick({

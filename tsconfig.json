@@ -5,9 +5,9 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "types": [
-        "./worker-configuration.d.ts",
-        "./worker-configuration.d.ts",
-        "@types/node"
+      "./worker-configuration.d.ts",
+      "@types/node",
+      "@cloudflare/vitest-pool-workers"
     ],
     "noEmit": true,
     "isolatedModules": true,
@@ -15,5 +15,5 @@
     "skipLibCheck": true,
     "strict": true
   },
-  "include": ["src"]
+  "include": ["src", "tests"]
 }

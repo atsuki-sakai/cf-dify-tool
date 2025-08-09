@@ -5,6 +5,7 @@ import { ReservationCreate } from "./reservationCreate";
 import { ReservationList } from "./reservationList";
 import { ReservationUpdate } from "./reservationUpdate";
 import { ReservationsByCustomer } from "./reservationsByCustomer";
+import { ReservationsByDate } from "./reservationsByDate";
 import { DEPLOY_URL } from "../../lib/constant";
 
 const app = new Hono();
@@ -25,6 +26,7 @@ const openapi = fromHono(app, {
 openapi.post("/", ReservationCreate);
 openapi.get("/", ReservationList);
 openapi.get("/customer/:customerId", ReservationsByCustomer);
+openapi.get("/date/:date", ReservationsByDate);
 openapi.put("/:id", ReservationUpdate);
 
 export { openapi as reservationsRouter };
