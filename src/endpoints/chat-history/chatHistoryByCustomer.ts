@@ -11,7 +11,8 @@ export class ChatHistoryByCustomer extends OpenAPIRoute {
     summary: 'Get chat history by customer ID',
     request: {
       params: z.object({
-        customerId: z.string().transform(val => parseInt(val)),
+        // Cloudflare D1/Drizzle の型整合性のため文字列のまま受け取り
+        customerId: z.string(),
       }),
     },
     responses: {
@@ -34,7 +35,11 @@ export class ChatHistoryByCustomer extends OpenAPIRoute {
     const { customerId } = params;
 
     const db = createDB(c.env.DB);
-    const result = await db.select().from(chatHistory).where(eq(chatHistory.customer_id, customerId));
+    // Drizzle の列型に合わせ、右辺も string として比較
+    const result = await db
+      .select()
+      .from(chatHistory)
+      .where(eq(chatHistory.customer_id, customerId));
 
     return {
       success: true,
