@@ -11,6 +11,9 @@ export default defineWorkersConfig({
   esbuild: {
     target: "esnext",
   },
+  optimizeDeps: {
+    disabled: true,
+  },
   test: {
     setupFiles: ["./tests/apply-migrations.ts"],
     poolOptions: {
@@ -23,6 +26,7 @@ export default defineWorkersConfig({
           compatibilityFlags: ["experimental", "nodejs_compat"],
           bindings: {
             MIGRATIONS: migrations,
+            APIKEY: "cf-dify-tool-test-key",
           },
         },
       },
