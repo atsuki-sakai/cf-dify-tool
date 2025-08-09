@@ -1,11 +1,18 @@
 import { ApiException, fromHono } from "chanfana";
 import { Hono } from "hono";
-import { tasksRouter } from "./endpoints/tasks/router";
+import { requireBearer } from "./middleware/auth";
+import { customersRouter } from "./endpoints/customers/router";
+import { chatHistoryRouter } from "./endpoints/chat-history/router";
+import { reservationsRouter } from "./endpoints/reservations/router";
 import { ContentfulStatusCode } from "hono/utils/http-status";
-import { DummyEndpoint } from "./endpoints/dummyEndpoint";
 
 // Start a Hono app
 const app = new Hono<{ Bindings: Env }>();
+
+// Protect only API routes, keep docs ("/") public
+app.use("/customers/*", requireBearer);
+app.use("/chat/*", requireBearer);
+app.use("/reservations/*", requireBearer);
 
 app.onError((err, c) => {
   if (err instanceof ApiException) {
@@ -33,18 +40,20 @@ const openapi = fromHono(app, {
   docs_url: "/",
   schema: {
     info: {
-      title: "My Awesome API",
-      version: "2.0.0",
-      description: "This is the documentation for my awesome API.",
+      title: "Dify Tool Cloudflare Worker API",
+      version: "1.0.0",
+      description: "This is the documentation for Dify Tool Cloudflare Worker API to d1 database to store chat history and reservations",
     },
+    servers: [
+      { url: "https://dify-tool.atk721.workers.dev" },
+    ],
   },
 });
 
-// Register Tasks Sub router
-openapi.route("/tasks", tasksRouter);
-
-// Register other endpoints
-openapi.post("/dummy/:slug", DummyEndpoint);
+// Register Sub routers
+openapi.route("/customers", customersRouter);
+openapi.route("/chat", chatHistoryRouter);
+openapi.route("/reservations", reservationsRouter);
 
 // Export the Hono app
 export default app;

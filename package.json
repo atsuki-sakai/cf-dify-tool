@@ -1,8 +1,8 @@
 {
-  "name": "chanfana-openapi-template",
-  "description": "Complete backend API template using Hono + Chanfana + D1 + Vitest.",
+  "name": "dify_tool_cloudflare",
+  "description": "Dify Tool Cloudflare Worker API to d1 database to store chat history and reservations",
   "cloudflare": {
-    "label": "Backend OpenAPI Template",
+    "label": "Dify Tool Cloudflare Worker API",
     "products": [
       "Workers",
       "D1"
@@ -23,17 +23,19 @@
     "dev": "pnpm seedLocalDb && wrangler dev",
     "predeploy": "wrangler d1 migrations apply DB --remote",
     "seedLocalDb": "wrangler d1 migrations apply DB --local",
-    "schema": "npx chanfana",
+    "schema": "npx chanfana && node scripts/convert-openapi-31-to-30.mjs",
     "test": "wrangler deploy --dry-run && npx vitest run --config tests/vitest.config.mts"
   },
   "dependencies": {
     "chanfana": "2.8.1",
+    "drizzle-orm": "^0.44.4",
     "hono": "4.8.2",
     "zod": "3.25.67"
   },
   "devDependencies": {
     "@cloudflare/vitest-pool-workers": "0.8.44",
     "@types/node": "24.0.4",
+    "drizzle-kit": "^0.31.4",
     "typescript": "5.8.3",
     "wrangler": "^4.28.1"
   }

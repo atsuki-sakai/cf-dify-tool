@@ -1,0 +1,10 @@
+-- Migration number: 0003 	 2025-08-09T00:00:00.000Z
+CREATE TABLE IF NOT EXISTS chat_history (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    customer_id INTEGER NOT NULL,
+    user_name TEXT NOT NULL,
+    message TEXT NOT NULL,
+    response TEXT NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (customer_id) REFERENCES customers (id) ON DELETE CASCADE
+);

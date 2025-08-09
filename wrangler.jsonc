@@ -43,9 +43,9 @@
 	// "services": [{ "binding": "MY_SERVICE", "service": "my-service" }]
 	"d1_databases": [
 		{
-			"binding": "DB",
-			"database_name": "openapi-template-db",
-			"database_id": "18d141d5-062d-46a0-a92a-bade3f8c4b00"
+		"binding": "DB",
+		"database_name": "dify-tool",
+		"database_id": "91db978a-3b5a-421e-b4f2-6403a4a099db"
 		}
 	]
 }
