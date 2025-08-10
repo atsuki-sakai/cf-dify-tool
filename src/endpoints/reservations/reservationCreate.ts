@@ -14,8 +14,9 @@ export class ReservationCreate extends D1CreateEndpoint<HandleArgs> {
       customer_name: true,
       service_name: true,
       reservation_date: true,
-      status: true,
-      notes: true,
+    }).extend({
+      status: ReservationModel.schema.shape.status.optional(),
+      notes: ReservationModel.schema.shape.notes.optional(),
     }),
   };
 }

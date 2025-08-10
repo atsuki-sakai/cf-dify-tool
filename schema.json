@@ -996,9 +996,7 @@
                   "customer_id",
                   "customer_name",
                   "service_name",
-                  "reservation_date",
-                  "status",
-                  "notes"
+                  "reservation_date"
                 ]
               }
             }
