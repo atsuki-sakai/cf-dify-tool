@@ -6,7 +6,7 @@ export const chatHistory = z.object({
   user_name: z.string(),
   message: z.string(),
   response: z.string(),
-  created_at: z.string(),
+  created_at: z.string()
 });
 
 export const ChatHistoryModel = {
